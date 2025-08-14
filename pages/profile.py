@@ -343,7 +343,7 @@ def main():
     st.markdown("""
         <div class="profile-info">
             <h2>Rifqy Ramdhani Hakim</h2>
-            <p class="student-id">123123123</p>
+            <p class="student-id">3260210111</p>
             <p class="program">Program Studi Teknik Informatika</p>
             <p class="university">Universitas Islam Sultan Agung, Semarang</p>
         </div>
