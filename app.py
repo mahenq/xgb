@@ -78,8 +78,6 @@ def load_model():
         model_package = joblib.load("./models/cycling_speed_prediction_model_v2.joblib")
         return model_package
     except FileNotFoundError:
-        st.error("⚠️ Model file 'cycling_speed_prediction_model.joblib' not found!")
-        st.info("💡 Note: This is a demo version. In production, the model file would be available.")
         # Return dummy model package for demo purposes
         return create_dummy_model_package()
     except Exception as e:
