@@ -1,5 +1,6 @@
 import streamlit as st
 from PIL import Image
+import os
 
 # Page config
 st.set_page_config(
@@ -210,6 +211,43 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+def load_profile_image():
+    """
+    Function to load profile image with multiple path attempts
+    Returns base64 encoded image for direct HTML embedding
+    """
+    import base64
+    from io import BytesIO
+    
+    # Get the current working directory
+    current_dir = os.getcwd()
+    
+    # Define possible paths for the profile image
+    possible_paths = [
+        "assets/profile.jpg",
+        "./assets/profile.jpg",
+        os.path.join(current_dir, "assets", "profile.jpg"),
+        os.path.join(os.path.dirname(__file__), "assets", "profile.jpg") if '__file__' in globals() else None,
+        "profile.jpg",
+        "./profile.jpg"
+    ]
+    
+    # Remove None values
+    possible_paths = [path for path in possible_paths if path is not None]
+    
+    # Try to load image from each path
+    for path in possible_paths:
+        try:
+            if os.path.exists(path):
+                with open(path, "rb") as img_file:
+                    img_bytes = img_file.read()
+                    img_base64 = base64.b64encode(img_bytes).decode()
+                    return img_base64, path
+        except Exception as e:
+            continue
+    
+    return None, None
+
 def main():
     # Header
     st.markdown('<h1 class="main-header">👤 Profil & Tugas Akhir</h1>', unsafe_allow_html=True)
@@ -220,31 +258,35 @@ def main():
     # Load and display profile image
     col1, col2, col3 = st.columns([1, 1, 1])
     with col2:
-        try:
-            # Coba berbagai kemungkinan path
-            possible_paths = [
-                "../assets/profile.jpg",
-                "assets/profile.jpg", 
-                "./assets/profile.jpg",
-                "profile.jpg"
-            ]
-            
-            image_loaded = False
-            for path in possible_paths:
-                try:
-                    profile_image = Image.open(path)
-                    st.image(profile_image, width=180, use_column_width=False)
-                    
-                    image_loaded = True
-                    break
-                except:
-                    continue
-            
-            if not image_loaded:
-                raise FileNotFoundError("Profile image not found")
-                
-        except:
-            # Fallback ke placeholder
+        # Try to load the profile image
+        img_base64, image_path = load_profile_image()
+        
+        if img_base64 is not None:
+            # Display image using HTML div with circular frame
+            st.markdown(f"""
+            <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
+                <div style="
+                    width: 180px; 
+                    height: 180px; 
+                    border-radius: 50%; 
+                    background-image: url(data:image/jpeg;base64,{img_base64});
+                    background-size: cover;
+                    background-position: center;
+                    background-repeat: no-repeat;
+                    border: 6px solid rgba(255,255,255,0.2);
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    transition: transform 0.3s ease;
+                ">
+                </div>
+            </div>
+            <style>
+            div[style*="background-image"]:hover {{
+                transform: scale(1.05);
+            }}
+            </style>
+            """, unsafe_allow_html=True)
+        else:
+            # Fallback to placeholder if image not found
             st.markdown("""
             <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
                 <div style="
@@ -258,12 +300,45 @@ def main():
                     font-size: 4rem;
                     border: 6px solid rgba(255,255,255,0.2);
                     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                    transition: transform 0.3s ease;
                 ">
                     👤
                 </div>
             </div>
+            <style>
+            div[style*="linear-gradient"]:hover {
+                transform: scale(1.05);
+            }
+            </style>
             """, unsafe_allow_html=True)
-            st.warning("⚠️ Foto profil tidak ditemukan. Pastikan file 'profile.jpg' ada di folder 'assets'")
+            
+            # Show debug information about attempted paths
+            with st.expander("🔍 Debug Info - Lokasi file yang dicari"):
+                current_dir = os.getcwd()
+                st.write(f"**Current working directory:** `{current_dir}`")
+                st.write("**Paths yang dicoba:**")
+                possible_paths = [
+                    "assets/profile.jpg",
+                    "./assets/profile.jpg",
+                    os.path.join(current_dir, "assets", "profile.jpg"),
+                    "profile.jpg",
+                    "./profile.jpg"
+                ]
+                
+                for path in possible_paths:
+                    exists = "✅" if os.path.exists(path) else "❌"
+                    st.write(f"- {exists} `{path}`")
+                
+                st.write("**Files in current directory:**")
+                try:
+                    files = os.listdir(current_dir)
+                    for file in sorted(files):
+                        if os.path.isdir(file):
+                            st.write(f"📁 {file}/")
+                        else:
+                            st.write(f"📄 {file}")
+                except:
+                    st.write("Cannot list directory contents")
     
     st.markdown("""
         <div class="profile-info">
