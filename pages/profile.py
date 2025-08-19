@@ -426,7 +426,7 @@ def main():
             </div>
             <div class="contact-card">
                 <h4>📱 Telepon</h4>
-                <p>+62 812-3456-7890</p>
+                <p>081548928174</p>
             </div>
             <div class="contact-card">
                 <h4>🌐 LinkedIn</h4>
@@ -434,7 +434,7 @@ def main():
             </div>
             <div class="contact-card">
                 <h4>🔗 GitHub</h4>
-                <p>github.com/rifqyramdhani</p>
+                <p>https://github.com/Rifqyyyy</p>
             </div>
         </div>
     </div>

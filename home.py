@@ -68,6 +68,10 @@ st.markdown("""
         border-radius: 5px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
+            
+
+
+            
 </style>
 """, unsafe_allow_html=True)
 
@@ -112,9 +116,10 @@ def main():
         st.subheader("🎯 Deskripsi Project")
         
         st.markdown("""
-        Saya adalah seorang **Data Scientist** dan **Machine Learning Engineer** dengan passion 
-        yang besar terhadap dunia olahraga, khususnya bersepeda. Dengan pengalaman lebih dari 3 tahun 
-        dalam bidang data science, saya fokus pada pengembangan solusi ML yang praktis dan bermanfaat.
+       Project ini disusun sebagai bagian dari pemenuhan syarat akademik pada jenjang Strata 1 (S1). 
+        Penelitian sekaligus pengembangan yang dilakukan dalam project ini merupakan tugas 
+                    akhir yang menjadi salah satu prasyarat kelulusan. Dengan demikian, project ini tidak hanya bertujuan untuk mengaplikasikan ilmu yang telah dipelajari selama masa studi, tetapi juga menjadi bentuk kontribusi penulis dalam bidang yang digeluti sesuai dengan program studi yang ditempuh.
+
         
         ### 🚴‍♂️ Background Bersepeda:
         Sebagai penggemar bersepeda aktif selama 5+ tahun, saya memahami betul tantangan dalam 
@@ -177,7 +182,6 @@ def main():
         - GitHub untuk version control
         
         **Features Implemented:**
-        - Real-time prediction
         - Interactive visualizations
         - Comprehensive analysis
         - Smart recommendations
