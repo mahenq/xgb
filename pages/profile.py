@@ -368,7 +368,6 @@ def main():
                 <li>Analisis 17+ faktor yang mempengaruhi performa bersepeda</li>
                 <li>Interface web interaktif menggunakan Streamlit</li>
                 <li>Visualisasi data komprehensif dengan Plotly</li>
-                <li>Integrasi data real-time dari berbagai API</li>
             </ul>
         </div>
     </div>

@@ -93,10 +93,9 @@ def main():
         st.markdown("---")
         st.markdown("**🛠️ Tech Stack:**")
         st.markdown("""
-        - Python, R, SQL
-        - Scikit-learn, XGBoost
-        - Streamlit, Flask
-        - Plotly, Matplotlib, Seaborn
+        - Python,
+        - XGBoost
+        - Streamlit, Plotly
         - Pandas, NumPy, Jupyter
         """)
 
